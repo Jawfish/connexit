@@ -1,65 +1,104 @@
 extends Node
 
-var color_schemes = {
+var color_schemes: Dictionary = {
+	0:{
+		'Player': Color('66545e'),
+		'Objects': Color('aa6f73'),
+		'Walls': Color('eea990'),
+		'Background': Color('f6e0b5'),
+		},
 	1:{
-		1: Color('66545e'),
-		2: Color('aa6f73'),
-		3: Color('eea990'),
-		4: Color('f6e0b5'),
-		5: Color(0,0,0,0)
+		'Player': Color('05668d'),
+		'Objects': Color('028090'),
+		'Walls': Color('02c39a'),
+		'Background': Color('f0f3bd'),
 		},
 	2:{
-		1: Color('f9ed69'),
-		2: Color('f08a5d'),
-		3: Color('b83b5e'),
-		4: Color('6a2c70'),
-		5: Color(0,0,0,0)
+		'Player': Color('f67280'),
+		'Objects': Color('c06c84'),
+		'Walls': Color('6c5b7b'),
+		'Background': Color('355c7d'),
 		},
 	3:{
-		1: Color('f67280'),
-		2: Color('c06c84'),
-		3: Color('6c5b7b'),
-		4: Color('355c7d'),
-		5: Color(0,0,0,0)
+		'Player': Color('b2967d'),
+		'Objects': Color('e6beae'),
+		'Walls': Color('e7d8c9'),
+		'Background': Color('eee4e1'),
 		},
 	4:{
-		1: Color('4b3832'),
-		2: Color('854442'),
-		3: Color('fff4e6'),
-		4: Color('be9b7b'),
-		5: Color(0,0,0,0)
+		'Player': Color('f57170'),
+		'Objects': Color('f5f5f5'),
+		'Walls': Color('10ddc2'),
+		'Background': Color('15b7b9'),
 		},
 	5:{
-		1: Color('f57170'),
-		2: Color('f5f5f5'),
-		3: Color('10ddc2'),
-		4: Color('15b7b9'),
-		5: Color(0,0,0,0)
+		'Player': Color('9d8189'),
+		'Objects': Color('f4acb7'),
+		'Walls': Color('ffcad4'),
+		'Background': Color('ffe5d9'),
 		},
 	6:{
-		1: Color('fecea8'),
-		2: Color('ff847c'),
-		3: Color('e84a5f'),
-		4: Color('2a363b'),
-		5: Color(0,0,0,0)
+		'Player': Color('6d6875'),
+		'Objects': Color('b5838d'),
+		'Walls': Color('e5989b'),
+		'Background': Color('ffb4a2'),
 		},
 	7:{
-		1: Color('f85f73'),
-		2: Color('fbe8d3'),
-		3: Color('928a97'),
-		4: Color('283c63'),
-		5: Color(0,0,0,0)
+		'Player': Color('293241'),
+		'Objects': Color('ee6c4d'),
+		'Walls': Color('98c1d9'),
+		'Background': Color('3d5a80'),
 		},
 	8:{
-		1: Color('f67280'),
-		2: Color('c06c84'),
-		3: Color('6c5b7b'),
-		4: Color('355c7d'),
-		5: Color(0,0,0,0)
+		'Player': Color('355070'),
+		'Objects': Color('6d597a'),
+		'Walls': Color('b56576'),
+		'Background': Color('e56b6f'),
+		},
+	9:{
+		'Player': Color('513b56'),
+		'Objects': Color('525174'),
+		'Walls': Color('348aa7'),
+		'Background': Color('5dd39e'),
+		},
+	10:{
+		'Player': Color('f27059'),
+		'Objects': Color('f4845f'),
+		'Walls': Color('f79d65'),
+		'Background': Color('f7b267'),
+		},
+	11:{
+		'Player': Color('714674'),
+		'Objects': Color('9f6976'),
+		'Walls': Color('cc8b79'),
+		'Background': Color('faae7b'),
+		},
+	12:{
+		'Player': Color('372549'),
+		'Objects': Color('774c60'),
+		'Walls': Color('b75d69'),
+		'Background': Color('eacdc2'),
+		},
+	13:{
+		'Player': Color('555b6e'),
+		'Objects': Color('89b0ae'),
+		'Walls': Color('bee3db'),
+		'Background': Color('faf9f9'),
+		},
+	14:{
+		'Player': Color('5bc0be'),
+		'Objects': Color('3a506b'),
+		'Walls': Color('1c2541'),
+		'Background': Color('0b132b'),
+		},
+	15:{
+		'Player': Color('b76935'),
+		'Objects': Color('935e38'),
+		'Walls': Color('38413f'),
+		'Background': Color('143642'),
 		},
 }
-var current_theme: int = 0
-var colorable_objects = { 'background': -1, 'player': -1, 'objects': -1, 'walls': -1 }
+var current_theme: Dictionary
 
 func _ready() -> void:
 	randomize()
@@ -67,23 +106,14 @@ func _ready() -> void:
 
 func change_theme() -> void:
 	randomize()
-	var i = randi() % ColorSchemes.color_schemes.size()	+ 1
-	if i == current_theme:
-		if i < ColorSchemes.color_schemes.size():
-			i += 1
+	var current_theme_key: int = randi() % ColorSchemes.color_schemes.size()
+	if color_schemes[current_theme_key] == current_theme:
+		if current_theme_key == 0:
+			current_theme_key += 1
 		else:
-			i -= 1
-	current_theme = i
-	set_indices()
-	print('Color scheme set to ' + str(current_theme))
-	print(colorable_objects)	
+			current_theme_key -= 1
+	current_theme = color_schemes[current_theme_key]
+	print('Color scheme set to ' + str(current_theme_key))
 	SignalManager.emit_signal("color_scheme_changed")
-
-# give each colorable object a random unique color from the current color scheme
-func set_indices() -> void:
-	var color_array: Array = range(len(colorable_objects))
-	color_array.shuffle()
-	var i: int = 0
-	for object in colorable_objects:
-		colorable_objects[object] = color_array[i] + 1
-		i += 1
+	# override for testing
+#	current_theme = color_schemes[15]

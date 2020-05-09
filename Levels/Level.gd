@@ -1,17 +1,18 @@
-extends ColorSchemeObject
+extends Node2D
 
 class_name Level
 
-func _init() -> void:
-	color_object = 'walls'
-
 func _ready() -> void:
 	generate_outer_walls()
-					
-func spawn_player(pos: Vector2) -> void:
-	var player: Player = PlayerManager.player_scene.instance()
-	player.position = pos
-	add_child(player)
+	var ui: CanvasLayer = SceneManager.game_ui.instance()
+	add_child(ui)
+	SignalManager.connect("scene_changed", self, "_on_scene_changed")					
+	
+func spawn_players() -> void:
+	for spawn in get_tree().get_nodes_in_group("Spawn"):
+		var player: Player = PlayerManager.player_scene.instance()
+		player.position = spawn.position
+		add_child(player)
 
 func generate_outer_walls() -> void:
 	var tile_size: int = GameManager.TILE_SIZE
@@ -22,3 +23,6 @@ func generate_outer_walls() -> void:
 				var wall: Node2D = SceneManager.wall.instance()
 				wall.position = Vector2(tile_size * i + tile_offset, tile_size * j + tile_offset)
 				add_child(wall)
+
+func _on_scene_changed() -> void:
+	queue_free()

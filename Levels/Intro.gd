@@ -1,4 +1,5 @@
 extends Level
 
 func _ready() -> void:
-	spawn_player(Vector2(96,96))
+	SceneManager.current_level = SceneManager.levels['Intro']
+	spawn_players()

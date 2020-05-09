@@ -9,4 +9,4 @@ func _ready() -> void:
 	update_color()
 
 func update_color() -> void:
-	modulate = ColorSchemes.color_schemes[ColorSchemes.current_theme][ColorSchemes.colorable_objects[color_object]]
+	modulate = ColorSchemes.current_theme[color_object]
