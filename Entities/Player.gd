@@ -61,3 +61,4 @@ func unscore_goal(tween_time = 0.5) -> void:
 	if control_disabled:
 		control_disabled = false
 	connectable = true
+	$StaticBody2D/CollisionShape2D.scale = Vector2(1, 1)

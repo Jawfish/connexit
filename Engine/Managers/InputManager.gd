@@ -18,7 +18,7 @@ func _process(delta: float) -> void:
 		if not undo_delayed and not PlayerManager.player_moving():
 			delay_undo()
 			for player in PlayerManager.players:
-				if not player.turn_locations.empty():
+				if not player.turn_locations.empty() and not PlayerManager.player_animation_playing():
 					if player.position != player.turn_locations.back():
 						player.enable_control()					
 					if player.goal_reached and player.turn_locations.pop_back() == player.last_position:
