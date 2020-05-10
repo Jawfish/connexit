@@ -9,7 +9,6 @@ onready var ray_w: RayCast2D = $RayW
 onready var tween: Tween = $Tween
 onready var sprite: Sprite = $Sprite
 onready var disconnected_sprite: Sprite = $DisconnectedSprite
-
 var last_position: Array
 export var control_disabled: bool = false
 
@@ -26,10 +25,13 @@ func _on_scene_changed():
 	queue_free()
 
 func disable_control() -> void:
-	control_disabled = true
-	disconnected_sprite.visible = true	
+	if not control_disabled:
+		control_disabled = true
+		disconnected_sprite.visible = true
+		$Disconnected.play()
 
 func enable_control() -> void:
-	control_disabled = false
-	disconnected_sprite.visible = false
-
+	if control_disabled:
+		control_disabled = false
+		disconnected_sprite.visible = false
+		$Connected.play()

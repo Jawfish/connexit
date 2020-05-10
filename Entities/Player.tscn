@@ -1,8 +1,10 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Entities/Player.gd" type="Script" id=1]
 [ext_resource path="res://Assets/RoundedBox.svg" type="Texture" id=2]
 [ext_resource path="res://Assets/Disconnected.svg" type="Texture" id=3]
+[ext_resource path="res://Assets/Sounds/click1.ogg" type="AudioStream" id=4]
+[ext_resource path="res://Assets/Sounds/click4.ogg" type="AudioStream" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 32, 32 )
@@ -83,3 +85,9 @@ anims/Spawn = SubResource( 2 )
 visible = false
 scale = Vector2( 0.2, 0.2 )
 texture = ExtResource( 3 )
+
+[node name="Disconnected" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 4 )
+
+[node name="Connected" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 5 )
