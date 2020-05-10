@@ -18,10 +18,10 @@ func _process(delta: float) -> void:
 		if not undo_delayed:
 			delay_undo()
 			for player in PlayerManager.players:
-				if not player.last_position.empty():
-					if player.position != player.last_position.back():
+				if not player.turn_locations.empty():
+					if player.position != player.turn_locations.back():
 						player.enable_control()
-					PlayerManager.move_to(player, player.last_position.pop_back(), 0.15 - undo_hold_time)
+					PlayerManager.move_to(player, player.turn_locations.pop_back(), 0.15 - undo_hold_time)
 	else:
 		undo_hold_time = 0
 				

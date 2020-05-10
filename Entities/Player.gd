@@ -9,10 +9,10 @@ onready var ray_w: RayCast2D = $RayW
 onready var tween: Tween = $Tween
 onready var sprite: Sprite = $Sprite
 onready var disconnected_sprite: Sprite = $DisconnectedSprite
-var last_position: Array
+var turn_locations: Array
 export var control_disabled: bool = false
 
-var previous_location: Vector2
+var last_position: Vector2
 
 func _init() -> void:
 	color_object = 'Player'
@@ -21,7 +21,7 @@ func _ready() -> void:
 	SignalManager.connect("scene_changed", self, "_on_scene_changed")
 	PlayerManager.players.append(self)
 	disconnected_sprite.modulate = Color(2, 2, 2, 1)
-	last_position.append(position)
+	turn_locations.append(position)
 
 func _on_scene_changed():
 	queue_free()

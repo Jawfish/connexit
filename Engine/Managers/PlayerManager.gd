@@ -21,10 +21,10 @@ func _process(delta: float) -> void:
 		if player_moving():
 			if no_players_moved():
 				for player in players:
-					player.last_position.pop_back()
+					player.turn_locations.pop_back()
 			for player in players:
-				player.last_position.append(player.position)
-				player.previous_location = player.position				
+				player.turn_locations.append(player.position)
+				player.last_position = player.position				
 				if not player.control_disabled:
 					if check_player_direction(player, directions.NORTH):
 						move_to(player, Vector2(player.position.x, player.position.y - GameManager.TILE_SIZE))
@@ -39,7 +39,7 @@ func _on_scene_changed() -> void:
 	players.clear()
 
 func move_to(player: Player, new_position: Vector2, time = 0.15, undoing = false) -> void:
-	player.previous_location = player.position					
+	player.last_position = player.position					
 	play_piece_move_sfx()
 	tween.interpolate_property(player, "position", player.position, new_position, time, Tween.TRANS_QUINT)
 	tween.start()
@@ -52,7 +52,7 @@ func all_players_stuck() -> bool:
 
 func no_players_moved() -> bool:
 	for player in players:
-		if (player.previous_location != player.position):
+		if (player.last_position != player.position):
 			return false
 	return true
 
