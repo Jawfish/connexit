@@ -12,6 +12,8 @@ onready var disconnected_sprite: Sprite = $DisconnectedSprite
 var last_position: Array
 export var control_disabled: bool = false
 
+var previous_location: Vector2
+
 func _init() -> void:
 	color_object = 'Player'
 	

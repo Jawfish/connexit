@@ -22,7 +22,6 @@ func _process(delta: float) -> void:
 					if player.position != player.last_position.back():
 						player.enable_control()
 					PlayerManager.move_to(player, player.last_position.pop_back(), 0.15 - undo_hold_time)
-#					player.position = player.last_position.pop_back()
 	else:
 		undo_hold_time = 0
 				
