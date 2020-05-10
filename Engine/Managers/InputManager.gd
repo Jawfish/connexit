@@ -15,13 +15,18 @@ func _input(event: InputEvent) -> void:
 func _process(delta: float) -> void:
 	if Input.is_action_pressed("undo"):
 		undo_hold_time += delta / 5
-		if not undo_delayed:
+		if not undo_delayed and not PlayerManager.player_moving():
 			delay_undo()
 			for player in PlayerManager.players:
 				if not player.turn_locations.empty():
 					if player.position != player.turn_locations.back():
-						player.enable_control()
-					PlayerManager.move_to(player, player.turn_locations.pop_back(), 0.15 - undo_hold_time)
+						player.enable_control()					
+					if player.goal_reached and player.turn_locations.pop_back() == player.last_position:
+						player.unscore_goal(0.15 - undo_hold_time)
+						yield(player.tween, "tween_all_completed")
+						PlayerManager.move_to(player, player.last_position, 0.15 - undo_hold_time)
+					elif not player.goal_reached:					
+						PlayerManager.move_to(player, player.turn_locations.pop_back(), 0.15 - undo_hold_time)
 	else:
 		undo_hold_time = 0
 				

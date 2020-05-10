@@ -24,7 +24,8 @@ func _process(delta: float) -> void:
 					player.turn_locations.pop_back()
 			for player in players:
 				player.turn_locations.append(player.position)
-				player.last_position = player.position				
+				if not player.goal_reached:
+					player.last_position = player.position				
 				if not player.control_disabled:
 					if check_player_direction(player, directions.NORTH):
 						move_to(player, Vector2(player.position.x, player.position.y - GameManager.TILE_SIZE))
@@ -56,6 +57,12 @@ func no_players_moved() -> bool:
 			return false
 	return true
 
+func player_animation_playing() -> bool:
+	for player in players:
+		if player.tween.is_active():
+			return true
+	return false
+
 func play_piece_move_sfx() -> void:
 	if not walk_sound_player.playing:
 		walk_sound_player.pitch_scale = rand_range(0.9, 1.05)
@@ -66,6 +73,8 @@ func player_moving() -> bool:
 	if not (Input.is_action_pressed("ui_down") or Input.is_action_pressed("ui_right") or Input.is_action_pressed("ui_left") or Input.is_action_pressed("ui_up")):
 		return false
 	if tween.is_active():
+		return false
+	if player_animation_playing():
 		return false
 	if all_players_stuck():
 		return false
