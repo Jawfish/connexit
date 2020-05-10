@@ -19,3 +19,6 @@ position = Vector2( 224, 160 )
 
 [node name="Sprite" parent="." instance=ExtResource( 3 )]
 position = Vector2( 352, 160 )
+
+[node name="Sprite2" parent="." instance=ExtResource( 3 )]
+position = Vector2( 480, 160 )
