@@ -9,9 +9,9 @@ onready var ray_w: RayCast2D = $RayW
 onready var tween: Tween = $Tween
 onready var sprite: Sprite = $Sprite
 onready var disconnected_sprite: Sprite = $DisconnectedSprite
-var turn_locations: Array
+var turn_states: Array
 export var control_disabled: bool = false
-
+enum states {POSITION, CONTROL_DISABLED, LAST_POSITION, GOAL_REACHED, CONNECTABLE, CONTROLLABLE_PREVIOUS_TURN}
 var last_position: Vector2
 var goal_reached: bool 
 var connectable: bool = true
@@ -24,7 +24,6 @@ func _ready() -> void:
 	SignalManager.connect("scene_changed", self, "_on_scene_changed")
 	PlayerManager.players.append(self)
 	disconnected_sprite.modulate = Color(2, 2, 2, 1)
-	turn_locations.append(position)
 
 func _on_scene_changed():
 	queue_free()
@@ -62,3 +61,24 @@ func unscore_goal(tween_time = 0.5) -> void:
 		control_disabled = false
 	connectable = true
 	$StaticBody2D/CollisionShape2D.scale = Vector2(1, 1)
+
+func add_turn_state() -> void:
+	turn_states.append([position, control_disabled, last_position, goal_reached, connectable, controllable_previous_turn])
+	
+func get_state(state: int):
+	var result = turn_states.back()[state]
+	return result
+
+func rewind() -> void:
+	turn_states.pop_back()
+
+func match_state(state: int) -> bool:
+	var s
+	match state:
+		0: s = position
+		1: s = control_disabled
+		2: s = last_position
+		3: s = goal_reached
+		4: s = connectable
+		5: s = controllable_previous_turn
+	return turn_states.back()[state] == s

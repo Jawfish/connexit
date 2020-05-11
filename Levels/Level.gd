@@ -7,6 +7,7 @@ func _ready() -> void:
 	var ui: CanvasLayer = SceneManager.game_ui.instance()
 	add_child(ui)
 	SignalManager.connect("scene_changed", self, "_on_scene_changed")					
+	spawn_players()
 	
 func spawn_players() -> void:
 	for spawn in get_tree().get_nodes_in_group("Spawn"):

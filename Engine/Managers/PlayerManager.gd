@@ -21,9 +21,9 @@ func _process(delta: float) -> void:
 		if player_moving():
 			if no_players_moved():
 				for player in players:
-					player.turn_locations.pop_back()
+					player.rewind()
 			for player in players:
-				player.turn_locations.append(player.position)
+				player.add_turn_state()
 				if not player.goal_reached:
 					player.last_position = player.position				
 				if not player.control_disabled:
