@@ -26,7 +26,7 @@ func _process(delta: float) -> void:
 				player.add_turn_state()
 				if not player.goal_reached:
 					player.last_position = player.position				
-				if not player.control_disabled:
+				if not player.control_disabled and not player_animation_playing():
 					if check_player_direction(player, directions.NORTH):
 						move_to(player, Vector2(player.position.x, player.position.y - GameManager.TILE_SIZE))
 					elif check_player_direction(player, directions.SOUTH):
@@ -44,6 +44,7 @@ func move_to(player: Player, new_position: Vector2, time = 0.15, undoing = false
 	play_piece_move_sfx()
 	tween.interpolate_property(player, "position", player.position, new_position, time, Tween.TRANS_QUINT)
 	tween.start()
+	yield(tween, "tween_completed")
 
 func all_players_stuck() -> bool:
 	for player in players:

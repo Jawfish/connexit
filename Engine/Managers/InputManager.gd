@@ -15,13 +15,15 @@ func _input(event: InputEvent) -> void:
 func _process(delta: float) -> void:
 	if Input.is_action_pressed("undo"):
 		undo_hold_time += delta / 5
+		if undo_hold_time >= undo_hold_delay:
+			undo_hold_time = undo_hold_delay - 0.033
 		if not undo_delayed and not PlayerManager.player_moving():
 			delay_undo()
 			for player in PlayerManager.players:
 				if not player.turn_states.empty() and not PlayerManager.player_animation_playing():
 					if not player.get_state(player.states.CONTROL_DISABLED):
 						player.enable_control()
-					if not player.match_state(player.states.CONTROL_DISABLED):
+					if (not player.match_state(player.states.CONTROL_DISABLED)) and player.turn_states.size() > 0:
 						player.disable_control()
 					if not player.match_state(player.states.GOAL_REACHED):
 						player.unscore_goal(undo_hold_delay - undo_hold_time)
@@ -32,6 +34,7 @@ func _process(delta: float) -> void:
 					player.rewind()
 	else:
 		undo_hold_time = 0
+		
 				
 func delay_undo() -> void:
 	undo_delayed = true

@@ -2,6 +2,8 @@ extends ColorSchemeObject
 
 class_name Player
 
+export var control_disabled: bool = false
+
 onready var ray_n: RayCast2D = $RayN
 onready var ray_s: RayCast2D = $RayS
 onready var ray_e: RayCast2D = $RayE
@@ -9,9 +11,11 @@ onready var ray_w: RayCast2D = $RayW
 onready var tween: Tween = $Tween
 onready var sprite: Sprite = $Sprite
 onready var disconnected_sprite: Sprite = $DisconnectedSprite
-var turn_states: Array
-export var control_disabled: bool = false
+onready var collision: CollisionShape2D = $StaticBody2D/CollisionShape2D
+
 enum states {POSITION, CONTROL_DISABLED, LAST_POSITION, GOAL_REACHED, CONNECTABLE, CONTROLLABLE_PREVIOUS_TURN}
+
+var turn_states: Array
 var last_position: Vector2
 var goal_reached: bool 
 var connectable: bool = true
@@ -41,6 +45,8 @@ func enable_control() -> void:
 		$Connected.play()
 
 func score_goal() -> void:
+	connectable = false	
+	disable_collision()
 	disconnected_sprite.visible = false
 	var tween_time: float = 0.5
 	tween.interpolate_property(sprite, "scale", sprite.scale, Vector2.ZERO, tween_time, Tween.TRANS_QUINT)
@@ -49,9 +55,7 @@ func score_goal() -> void:
 	goal_reached = true
 	if not control_disabled:
 		control_disabled = true
-	connectable = false
-	$StaticBody2D/CollisionShape2D.scale *= 0
-
+	
 func unscore_goal(tween_time = 0.5) -> void:
 	tween.interpolate_property(sprite, "scale", sprite.scale, Vector2(0.25, 0.25), tween_time, Tween.TRANS_QUINT)
 	tween.interpolate_property(sprite, "rotation", sprite.rotation, 0, tween_time, Tween.TRANS_QUINT)
@@ -60,8 +64,8 @@ func unscore_goal(tween_time = 0.5) -> void:
 	if control_disabled:
 		control_disabled = false
 	connectable = true
-	$StaticBody2D/CollisionShape2D.scale = Vector2(1, 1)
-
+	enable_collision()
+	
 func add_turn_state() -> void:
 	turn_states.append([position, control_disabled, last_position, goal_reached, connectable, controllable_previous_turn])
 	
@@ -72,13 +76,24 @@ func get_state(state: int):
 func rewind() -> void:
 	turn_states.pop_back()
 
+func disable_collision() -> void:
+	collision.scale *= 0
+	collision.disabled = true
+	
+func enable_collision() -> void:
+	collision.scale = Vector2(1,1)	
+	collision.disabled = false
+	
+
 func match_state(state: int) -> bool:
-	var s
-	match state:
-		0: s = position
-		1: s = control_disabled
-		2: s = last_position
-		3: s = goal_reached
-		4: s = connectable
-		5: s = controllable_previous_turn
-	return turn_states.back()[state] == s
+	if turn_states.size() > 1:
+		var s
+		match state:
+			0: s = position
+			1: s = control_disabled
+			2: s = last_position
+			3: s = goal_reached
+			4: s = connectable
+			5: s = controllable_previous_turn
+		return turn_states.back()[state] == s
+	return true
