@@ -101,6 +101,7 @@ var color_schemes: Dictionary = {
 var current_theme: Dictionary
 
 func _ready() -> void:
+	SignalManager.connect("scene_changed", self, "change_theme")
 	randomize()
 	change_theme()
 
@@ -113,7 +114,4 @@ func change_theme() -> void:
 		else:
 			current_theme_key -= 1
 	current_theme = color_schemes[current_theme_key]
-	print('Color scheme set to ' + str(current_theme_key))
 	SignalManager.emit_signal("color_scheme_changed")
-	# override for testing
-#	current_theme = color_schemes[15]

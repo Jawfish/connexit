@@ -17,4 +17,4 @@ func _ready() -> void:
 
 
 func _on_Button_pressed() -> void:
-	SceneManager.transition_to_scene('Level 1')
+	SignalManager.emit_signal("transition_to_level", "Level 1")

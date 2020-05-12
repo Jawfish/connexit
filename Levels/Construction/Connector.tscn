@@ -8,6 +8,7 @@ extents = Vector2( 155, 155 )
 
 [node name="Connector" type="Sprite"]
 scale = Vector2( 0.2, 0.2 )
+z_index = -10
 texture = ExtResource( 2 )
 script = ExtResource( 1 )
 

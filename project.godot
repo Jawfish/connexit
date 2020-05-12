@@ -44,8 +44,6 @@ run/main_scene="res://UI/MainMenu.tscn"
 [autoload]
 
 ColorSchemes="*res://Engine/ColorSchemes.gd"
-PlayerManager="*res://Engine/Managers/PlayerManager.gd"
-InputManager="*res://Engine/Managers/InputManager.gd"
 SignalManager="*res://Engine/Managers/SignalManager.gd"
 GameManager="*res://Engine/Managers/GameManager.gd"
 SceneManager="*res://Engine/Managers/SceneManager.tscn"
