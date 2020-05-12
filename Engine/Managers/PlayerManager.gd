@@ -2,10 +2,13 @@ extends Node
 
 onready var player_scene: PackedScene = preload("res://Entities/Player.tscn")
 onready var walk_sound: AudioStream = preload("res://Assets/Sounds/rollover2.ogg")
+onready var level_complete_sound: AudioStream = preload("res://Assets/Sounds/success.ogg")
 
 var players: Array
 var tween: Tween
 var walk_sound_player: AudioStreamPlayer
+var level_complete_sound_player: AudioStreamPlayer
+var next_level: String
 
 enum directions { NORTH, SOUTH, EAST, WEST }
 
@@ -16,8 +19,14 @@ func _ready() -> void:
 	walk_sound_player = AudioStreamPlayer.new()
 	walk_sound_player.stream = walk_sound
 	add_child(walk_sound_player)
+	level_complete_sound_player = AudioStreamPlayer.new()
+	level_complete_sound_player.stream = level_complete_sound
+	add_child(level_complete_sound_player)
+	level_complete_sound_player.volume_db = -10
+
 		
 func _process(delta: float) -> void:
+	if not InputManager.block_input:
 		if player_moving():
 			if no_players_moved():
 				for player in players:
@@ -45,6 +54,7 @@ func move_to(player: Player, new_position: Vector2, time = 0.15, undoing = false
 	tween.interpolate_property(player, "position", player.position, new_position, time, Tween.TRANS_QUINT)
 	tween.start()
 	yield(tween, "tween_completed")
+	check_level_complete()
 
 func all_players_stuck() -> bool:
 	for player in players:
@@ -54,20 +64,20 @@ func all_players_stuck() -> bool:
 
 func no_players_moved() -> bool:
 	for player in players:
-		if (player.last_position != player.position):
+		if (player.last_position != player.position) and not player.goal_reached:
 			return false
 	return true
 
 func player_animation_playing() -> bool:
 	for player in players:
-		if player.tween.is_active():
+		if is_instance_valid(player) and player.tween.is_active():
 			return true
 	return false
 
 func play_piece_move_sfx() -> void:
 	if not walk_sound_player.playing:
 		walk_sound_player.pitch_scale = rand_range(0.9, 1.05)
-		walk_sound_player.volume_db = rand_range(-15,-17)
+		walk_sound_player.volume_db = rand_range(-5,-3)
 		walk_sound_player.play()
 
 func player_moving() -> bool:
@@ -100,3 +110,17 @@ func check_player_direction(player: Player, direction: int) -> bool:
 	if Input.is_action_pressed(input) and not ray.is_colliding():
 		return true
 	return false
+
+func check_level_complete() -> void:
+	for player in players:
+		if player.goal_reached == false:
+			return
+	InputManager.block_input = true
+	for player in players:
+		if player.tween.is_active():
+			yield(player.tween, "tween_all_completed")
+		player.queue_free()
+	players.clear()
+	yield(get_tree().create_timer(0.5), "timeout")
+	level_complete_sound_player.play()
+	SceneManager.transition_to_scene(next_level)

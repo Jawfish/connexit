@@ -6,7 +6,8 @@
 [ext_resource path="res://Levels/Construction/Spawn.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Levels/Construction/Goal.tscn" type="PackedScene" id=5]
 
-[node name="Level" instance=ExtResource( 1 )]
+[node name="Level1" instance=ExtResource( 1 )]
+next_level = "Level 2"
 
 [node name="Spawn" parent="." index="0" instance=ExtResource( 4 )]
 position = Vector2( 96, 96 )
@@ -17,13 +18,19 @@ position = Vector2( 928, 96 )
 [node name="Connector" parent="." index="2" instance=ExtResource( 2 )]
 position = Vector2( 224, 160 )
 
-[node name="Disconnector" parent="." index="3" instance=ExtResource( 3 )]
+[node name="Connector2" parent="." index="3" instance=ExtResource( 2 )]
+position = Vector2( 224, 288 )
+
+[node name="Disconnector" parent="." index="4" instance=ExtResource( 3 )]
 position = Vector2( 800, 160 )
 
-[node name="Goal" parent="." index="4" instance=ExtResource( 5 )]
+[node name="Disconnector2" parent="." index="5" instance=ExtResource( 3 )]
+position = Vector2( 800, 288 )
+
+[node name="Goal" parent="." index="6" instance=ExtResource( 5 )]
 position = Vector2( 352, 160 )
 next_level = "Level 2"
 
-[node name="Goal2" parent="." index="5" instance=ExtResource( 5 )]
+[node name="Goal2" parent="." index="7" instance=ExtResource( 5 )]
 position = Vector2( 672, 160 )
 next_level = "Level 2"

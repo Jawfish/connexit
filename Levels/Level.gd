@@ -2,12 +2,14 @@ extends Node2D
 
 class_name Level
 
+export var next_level: String
+
 func _ready() -> void:
 	generate_outer_walls()
 	var ui: CanvasLayer = SceneManager.game_ui.instance()
 	add_child(ui)
-	SignalManager.connect("scene_changed", self, "_on_scene_changed")					
 	spawn_players()
+	PlayerManager.next_level = next_level
 	
 func spawn_players() -> void:
 	for spawn in get_tree().get_nodes_in_group("Spawn"):
@@ -24,6 +26,3 @@ func generate_outer_walls() -> void:
 				var wall: Node2D = SceneManager.wall.instance()
 				wall.position = Vector2(tile_size * i + tile_offset, tile_size * j + tile_offset)
 				add_child(wall)
-
-func _on_scene_changed() -> void:
-	queue_free()

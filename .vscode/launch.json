@@ -5,25 +5,14 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Play in Editor",
-      "type": "godot-mono",
-      "mode": "playInEditor",
-      "request": "launch"
-    },
-    {
-      "name": "Launch",
-      "type": "godot-mono",
+      "name": "Godot",
+      "type": "godot",
       "request": "launch",
-      "mode": "executable",
-      "executable": "${workspaceRoot}/Godot.exe",
-      "executableArguments": ["--path", "${workspaceRoot}"]
-    },
-    {
-      "name": "Attach",
-      "type": "godot-mono",
-      "request": "attach",
-      "address": "localhost",
-      "port": 23685
+      "project": "${workspaceFolder}",
+      "port": 6007,
+      "address": "127.0.0.1",
+      "launch_game_instance": true,
+      "launch_scene": false
     }
   ]
 }

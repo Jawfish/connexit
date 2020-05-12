@@ -2,3 +2,5 @@ extends Node
 
 signal color_scheme_changed
 signal scene_changed
+signal scene_change_start
+signal scene_change_end
