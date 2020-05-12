@@ -1,13 +1,11 @@
 extends Node
 
 onready var player_scene: PackedScene = preload("res://Entities/Player.tscn")
-onready var walk_sound: AudioStream = preload("res://Assets/Sounds/rollover2.ogg")
-onready var level_complete_sound: AudioStream = preload("res://Assets/Sounds/success.ogg")
+onready var tween: Tween = $Tween
+onready var walk_sound_player: AudioStreamPlayer = $WalkSound
+onready var level_complete_sound_player: AudioStreamPlayer = $LevelCompleteSound
 
 var players: Array
-var tween: Tween
-var walk_sound_player: AudioStreamPlayer
-var level_complete_sound_player: AudioStreamPlayer
 var next_level: String
 var intended_direction: int
 var undo_delayed: bool = false
@@ -20,18 +18,6 @@ func _ready() -> void:
 	SignalManager.connect("level_loaded", self, "_on_level_loaded")	
 	SignalManager.connect("players_finished_spawning", self, "_on_players_finished_spawning")
 	SignalManager.connect("level_complete", self, "_on_level_complete")
-	
-	tween = Tween.new()
-	add_child(tween)
-	
-	walk_sound_player = AudioStreamPlayer.new()
-	walk_sound_player.stream = walk_sound
-	add_child(walk_sound_player)
-	
-	level_complete_sound_player = AudioStreamPlayer.new()
-	level_complete_sound_player.stream = level_complete_sound
-	level_complete_sound_player.volume_db = -10
-	add_child(level_complete_sound_player)
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_down"):
