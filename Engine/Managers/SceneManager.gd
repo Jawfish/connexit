@@ -15,7 +15,7 @@ var levels = {
 	'Level 3' : preload("res://Levels/Level3.tscn"),
 	'Level 4' : preload("res://Levels/Level4.tscn"),
 	'Level 5' : preload("res://Levels/Level5.tscn"),
-#	'Level 6' : preload("res://Levels/Level6.tscn"),
+	'Level 6' : preload("res://Levels/Level6.tscn"),
 #	'Level 7' : preload("res://Levels/Level7.tscn"),
 #	'Level 8' : preload("res://Levels/Level8.tscn"),
 #	'Level 9' : preload("res://Levels/Level9.tscn"),

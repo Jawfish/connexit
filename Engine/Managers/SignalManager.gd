@@ -18,7 +18,3 @@ signal level_loaded(new_level, next_level)
 # player events
 signal player_started_moving
 signal player_finished_moving
-
-# input managing
-signal block_input
-signal unblock_input
