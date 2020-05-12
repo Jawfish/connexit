@@ -101,7 +101,7 @@ var color_schemes: Dictionary = {
 var current_theme: Dictionary
 
 func _ready() -> void:
-	SignalManager.connect("scene_changed", self, "change_theme")
+	SignalManager.connect("slide_down_finish", self, "change_theme")
 	randomize()
 	change_theme()
 

@@ -43,37 +43,31 @@ func enable_control() -> void:
 
 func score_goal(tween_time: float = 0.5) -> void:
 	disconnected_sprite.visible = false
-	if not tween.interpolate_property(sprite, "scale", sprite.scale, Vector2.ZERO, tween_time, Tween.TRANS_QUINT):
-		print('Error interpolating property')
-	elif not tween.interpolate_property(sprite, "rotation", sprite.rotation, 3, tween_time, Tween.TRANS_QUINT):
-		print('Error interpolating property')
-	elif not tween.start():
-		print('Error playing tween')
+	tween.interpolate_property(sprite, "scale", sprite.scale, Vector2.ZERO, tween_time, Tween.TRANS_QUINT)
+	tween.interpolate_property(sprite, "rotation", sprite.rotation, 3, tween_time, Tween.TRANS_QUINT)
+	tween.start()
 	goal_reached = true
 	if not control_disabled:
 		control_disabled = true
 	connectable = false	
 	# do not use call_deferred on this, the debugger is wrong
-	call_deferred("disable_collision")
+	disable_collision()
 	if not pop.is_playing():
 		pop.pitch_scale = rand_range(0.9,1.1)
 		pop.play()
 	yield(tween, "tween_all_completed")
 
 func unscore_goal(tween_time: float = 0.5) -> void:
-	if not tween.interpolate_property(sprite, "scale", sprite.scale, Vector2(0.25, 0.25), tween_time, Tween.TRANS_QUINT):
-		print('Error interpolating property')		
-	elif not tween.interpolate_property(sprite, "rotation", sprite.rotation, 0, tween_time, Tween.TRANS_QUINT):
-		print('Error interpolating property')
-	elif not tween.start():
-		print('Error playing tween')
+	tween.interpolate_property(sprite, "scale", sprite.scale, Vector2(0.25, 0.25), tween_time, Tween.TRANS_QUINT)
+	tween.interpolate_property(sprite, "rotation", sprite.rotation, 0, tween_time, Tween.TRANS_QUINT)
+	tween.start()
 	yield(tween, "tween_all_completed")
 	goal_reached = false
 	if control_disabled:
 		control_disabled = false
 	connectable = true
 	# do not use call_deferred on this, the debugger is wrong	
-	call_deferred("enable_collision")
+	enable_collision();
 	if not pop_reverse.is_playing():
 		pop_reverse.pitch_scale = rand_range(0.9,1.1)
 		pop_reverse.play()

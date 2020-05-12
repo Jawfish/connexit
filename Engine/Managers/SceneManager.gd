@@ -67,20 +67,17 @@ func _ready() -> void:
 	SignalManager.connect("level_complete", self, "_on_level_complete")
 
 func transition_to_level(level_name: String) -> void:
-	SignalManager.emit_signal("scene_change_start")
+	SignalManager.emit_signal("slide_down_start")
 	slide_down()
 	yield(tween, "tween_all_completed")
-	unload_scene()
 	yield(get_tree().create_timer(GameManager.TURN_TIME), "timeout")	
-	SignalManager.emit_signal("scene_changed")
+	SignalManager.emit_signal("slide_down_finish")
 	get_tree().change_scene_to(levels[level_name])
 	current_level = level_name
 	slide_up()
 	yield(tween, "tween_all_completed")
-
-func unload_scene() -> void:
-	get_tree().current_scene.queue_free()
-
+	SignalManager.emit_signal("slide_up_finish")
+	
 func slide_down() -> void:
 	tween.interpolate_property(color_rect, "margin_bottom", color_rect.margin_bottom, 0, GameManager.TURN_TIME, Tween.TRANS_QUINT)	
 	tween.start()

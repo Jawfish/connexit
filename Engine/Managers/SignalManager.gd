@@ -5,10 +5,9 @@ signal color_scheme_changed
 
 # transitions
 signal transition_to_level(level_name)
-# when the scene transition begins to fade in
-signal scene_change_start
-# after the scene transition has faded out, but before it has faded in
-signal scene_changed
+signal slide_down_start
+signal slide_down_finish
+signal slide_up_finish
 
 # level events
 signal players_finished_spawning

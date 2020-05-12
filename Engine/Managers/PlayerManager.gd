@@ -9,13 +9,15 @@ var next_level: String
 var intended_direction: int
 var undo_delayed: bool = false
 var input_blocked: bool = false
+var level_complete: bool = false
 
 enum directions { NORTH, SOUTH, EAST, WEST }
-
+	
 func _ready() -> void:
 	SignalManager.connect("level_loaded", self, "_on_level_loaded")	
 	SignalManager.connect("players_finished_spawning", self, "_on_players_finished_spawning")
 	SignalManager.connect("level_complete", self, "_on_level_complete")
+	SignalManager.connect("slide_up_finish", self, "_on_slide_up_finish")
 
 func _input(event: InputEvent) -> void:
 	if not input_blocked:
@@ -41,7 +43,7 @@ func _process(delta: float) -> void:
 				player.add_turn_state()
 				if not player.goal_reached:
 					player.last_position = player.position				
-				if not player.control_disabled:
+				if not player.control_disabled and not player_animation_playing():
 					if check_player_direction(player, directions.NORTH) and intended_direction == directions.NORTH:
 						move_to(player, Vector2(player.position.x, player.position.y - GameManager.TILE_SIZE))
 					elif check_player_direction(player, directions.SOUTH) and intended_direction == directions.SOUTH:
@@ -53,7 +55,7 @@ func _process(delta: float) -> void:
 		elif Input.is_action_pressed("undo") and not direction_key_pressed() and not undo_delayed:
 				delay_undo()
 				for player in players:
-					if is_instance_valid(player) and not player.turn_states.empty():
+					if is_instance_valid(player) and not player.turn_states.empty() and not player_animation_playing():
 						if not player.get_state(player.states.CONTROL_DISABLED):
 							player.enable_control()
 						if (not player.match_state(player.states.CONTROL_DISABLED)) and player.turn_states.size() > 0:
@@ -69,7 +71,9 @@ func _process(delta: float) -> void:
 
 func _on_level_loaded(new_level: String, next_level: String) -> void:
 	self.next_level = next_level
-	spawn_players()
+
+func _on_slide_up_finish() -> void:
+	spawn_players()	
 
 func spawn_players() -> void:
 	for spawn in get_tree().get_nodes_in_group("Spawn"):
@@ -84,13 +88,15 @@ func _on_players_finished_spawning() -> void:
 	unblock_input()
 
 func check_level_complete() -> void:
-	for player in players:
-		if player.goal_reached == false:
-			return
-	SignalManager.emit_signal("level_complete")
-	# wait until the player is no longer visible
-	yield(get_tree().create_timer(GameManager.TURN_TIME), "timeout")
-	SignalManager.emit_signal("transition_to_level", next_level)
+	if not level_complete:
+		for player in players:
+			if player.goal_reached == false:
+				return
+		level_complete = true
+		SignalManager.emit_signal("level_complete")
+		# wait until the player is no longer visible
+		yield(get_tree().create_timer(GameManager.TURN_TIME), "timeout")
+		SignalManager.emit_signal("transition_to_level", next_level)
 
 func _on_level_complete() -> void:
 	block_input()
@@ -126,10 +132,18 @@ func play_piece_move_sfx() -> void:
 		walk_sound_player.volume_db = rand_range(-5,-3)
 		walk_sound_player.play()
 
+func player_animation_playing() -> bool:
+	for player in players:
+		if player.tween.is_active():
+				return true
+	return false
+
 func player_moving() -> bool:
 	if not direction_key_pressed():
 		return false
 	if tween.is_active():
+		return false
+	if player_animation_playing():
 		return false
 	if all_players_stuck():
 		return false

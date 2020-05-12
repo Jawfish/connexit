@@ -11,21 +11,15 @@
 this_level = "Level 3"
 next_level = "Level 4"
 
-[node name="Spawn7" parent="." index="0" instance=ExtResource( 4 )]
-position = Vector2( 96, 224 )
-
-[node name="Spawn8" parent="." index="1" instance=ExtResource( 4 )]
-position = Vector2( 96, 416 )
-
-[node name="Goal2" parent="." index="2" instance=ExtResource( 5 )]
+[node name="Goal2" parent="." index="0" instance=ExtResource( 5 )]
 position = Vector2( 928, 224 )
 next_level = "Level 1"
 
-[node name="Goal3" parent="." index="3" instance=ExtResource( 5 )]
+[node name="Goal3" parent="." index="1" instance=ExtResource( 5 )]
 position = Vector2( 928, 416 )
 next_level = "Level 1"
 
-[node name="Walls" type="Node2D" parent="." index="4"]
+[node name="Walls" type="Node2D" parent="." index="2"]
 
 [node name="Wall" parent="Walls" index="0" instance=ExtResource( 2 )]
 position = Vector2( 96, 96 )
@@ -279,14 +273,14 @@ position = Vector2( 864, 544 )
 [node name="Wall99" parent="Walls" index="83" instance=ExtResource( 2 )]
 position = Vector2( 928, 544 )
 
-[node name="Control" type="Control" parent="." index="5"]
+[node name="Control" type="Control" parent="." index="3"]
 margin_right = 40.0
 margin_bottom = 40.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Connectors" type="Node" parent="." index="6"]
+[node name="Connectors" type="Node" parent="." index="4"]
 
 [node name="Connector" parent="Connectors" index="0" instance=ExtResource( 3 )]
 position = Vector2( 736, 224 )
@@ -294,3 +288,9 @@ position = Vector2( 736, 224 )
 [node name="Disconnector" parent="Connectors" index="1" instance=ExtResource( 6 )]
 position = Vector2( 288, 224 )
 z_index = 0
+
+[node name="Spawn" parent="." index="6" instance=ExtResource( 4 )]
+position = Vector2( 96, 224 )
+
+[node name="Spawn2" parent="." index="7" instance=ExtResource( 4 )]
+position = Vector2( 96, 416 )
