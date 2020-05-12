@@ -3,7 +3,6 @@ extends Node
 onready var player_scene: PackedScene = preload("res://Entities/Player.tscn")
 onready var tween: Tween = $Tween
 onready var walk_sound_player: AudioStreamPlayer = $WalkSound
-onready var level_complete_sound_player: AudioStreamPlayer = $LevelCompleteSound
 
 var players: Array
 var next_level: String
@@ -14,7 +13,7 @@ var block_input: bool = false
 enum directions { NORTH, SOUTH, EAST, WEST }
 
 func _ready() -> void:
-	SignalManager.connect("scene_changed", self, "_on_scene_changed")
+	# SignalManager.connect("scene_changed", self, "_on_scene_changed")
 	SignalManager.connect("level_loaded", self, "_on_level_loaded")	
 	SignalManager.connect("players_finished_spawning", self, "_on_players_finished_spawning")
 	SignalManager.connect("level_complete", self, "_on_level_complete")
@@ -71,8 +70,8 @@ func delay_undo() -> void:
 	yield(get_tree().create_timer(GameManager.TURN_TIME), "timeout")
 	undo_delayed = false
 					
-func _on_scene_changed() -> void:
-	unload_players()
+# func _on_scene_changed() -> void:
+# 	unload_players()
 
 func move_to(player: Player, new_position: Vector2, time = 0.15, undoing = false) -> void:
 	player.last_position = player.position					
@@ -146,14 +145,13 @@ func check_level_complete() -> void:
 			return
 	SignalManager.emit_signal("level_complete")
 	# wait until the player is no longer visible
-	yield(get_tree().create_timer(0.3), "timeout")
-	level_complete_sound_player.play()
+	yield(get_tree().create_timer(GameManager.TURN_TIME), "timeout")
 	SignalManager.emit_signal("transition_to_level", next_level)
 
-func unload_players() -> void:
-	players.clear()
-	for player in get_tree().get_nodes_in_group("Player"):
-		player.queue_free()
+# func unload_players() -> void:
+# 	players.clear()
+# 	for player in get_tree().get_nodes_in_group("Player"):
+# 		player.queue_free()
 
 func _on_players_finished_spawning() -> void:
 	for player in get_tree().get_nodes_in_group("Player"):

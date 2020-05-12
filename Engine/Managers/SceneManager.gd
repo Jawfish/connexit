@@ -2,6 +2,8 @@ extends Node
 
 onready var tween: Tween = $Tween
 onready var color_rect: ColorRect = $CanvasLayer/ColorRect
+onready var level_complete_sound: AudioStreamPlayer = $LevelCompleteSound
+onready var slide_sound: AudioStreamPlayer = $SlideSound
 
 var wall: PackedScene = preload("res://Levels/Construction/Wall.tscn")
 var level: PackedScene = preload("res://Levels/Level.tscn")
@@ -62,6 +64,7 @@ var levels = {
 
 func _ready() -> void:
 	SignalManager.connect("transition_to_level", self, "transition_to_level")
+	SignalManager.connect("level_complete", self, "_on_level_complete")
 
 func transition_to_level(level_name: String) -> void:
 	SignalManager.emit_signal("scene_change_start")
@@ -80,9 +83,15 @@ func unload_scene() -> void:
 
 func slide_down() -> void:
 	tween.interpolate_property(color_rect, "margin_bottom", color_rect.margin_bottom, 0, GameManager.TURN_TIME, Tween.TRANS_QUINT)	
-	tween.start()	
+	tween.start()
+	slide_sound.pitch_scale = 1
+	slide_sound.play()
 
 func slide_up() -> void:
 	tween.interpolate_property(color_rect, "margin_bottom", color_rect.margin_bottom, -641, GameManager.TURN_TIME, Tween.TRANS_QUINT)	
 	tween.start()	
+	slide_sound.pitch_scale = 1.1
+	slide_sound.play()
 	
+func _on_level_complete() -> void:
+	level_complete_sound.play()
