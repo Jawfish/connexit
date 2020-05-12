@@ -9,6 +9,7 @@ var tween: Tween
 var walk_sound_player: AudioStreamPlayer
 var level_complete_sound_player: AudioStreamPlayer
 var next_level: String
+var intended_direction: int
 
 enum directions { NORTH, SOUTH, EAST, WEST }
 
@@ -24,6 +25,15 @@ func _ready() -> void:
 	add_child(level_complete_sound_player)
 	level_complete_sound_player.volume_db = -10
 
+func _input(event: InputEvent) -> void:
+	if Input.is_action_just_pressed("ui_down"):
+		intended_direction = directions.SOUTH
+	elif Input.is_action_just_pressed("ui_up"):
+		intended_direction = directions.NORTH
+	elif Input.is_action_just_pressed("ui_left"):
+		intended_direction = directions.WEST
+	elif Input.is_action_just_pressed("ui_right"):
+		intended_direction = directions.EAST
 		
 func _process(delta: float) -> void:
 	if not InputManager.block_input:
@@ -36,13 +46,13 @@ func _process(delta: float) -> void:
 				if not player.goal_reached:
 					player.last_position = player.position				
 				if not player.control_disabled and not player_animation_playing():
-					if check_player_direction(player, directions.NORTH):
+					if check_player_direction(player, directions.NORTH) and intended_direction == directions.NORTH:
 						move_to(player, Vector2(player.position.x, player.position.y - GameManager.TILE_SIZE))
-					elif check_player_direction(player, directions.SOUTH):
+					elif check_player_direction(player, directions.SOUTH) and intended_direction == directions.SOUTH:
 						move_to(player, Vector2(player.position.x, player.position.y + GameManager.TILE_SIZE))
-					elif check_player_direction(player, directions.WEST):
+					elif check_player_direction(player, directions.WEST) and intended_direction == directions.WEST:
 						move_to(player, Vector2(player.position.x - GameManager.TILE_SIZE, player.position.y))
-					elif check_player_direction(player, directions.EAST):
+					elif check_player_direction(player, directions.EAST) and intended_direction == directions.EAST:
 						move_to(player, Vector2(player.position.x + GameManager.TILE_SIZE, player.position.y))
 					
 func _on_scene_changed() -> void:
