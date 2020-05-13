@@ -13,7 +13,6 @@ var level_complete: bool = false
 enum directions { NORTH, SOUTH, EAST, WEST }
 	
 func _ready() -> void:
-	SignalManager.connect("level_loaded", self, "_on_level_loaded")	
 	SignalManager.connect("players_finished_spawning", self, "_on_players_finished_spawning")
 	SignalManager.connect("level_complete", self, "_on_level_complete")
 	SignalManager.connect("slide_up_finish", self, "_on_slide_up_finish")
