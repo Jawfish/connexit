@@ -18,16 +18,16 @@ var levels: Array = [
 			load("res://Levels/Level8.tscn"),
 			load("res://Levels/Level9.tscn"),
 			load("res://Levels/Level10.tscn"),
-			load("res://Levels/Level11.tscn"),
-			load("res://Levels/Level12.tscn"),
-			load("res://Levels/Level13.tscn"),
-			load("res://Levels/Level14.tscn"),
-			load("res://Levels/Level15.tscn"),
-			load("res://Levels/Level16.tscn"),
-			load("res://Levels/Level17.tscn"),
-			load("res://Levels/Level18.tscn"),
-			load("res://Levels/Level19.tscn"),
-			load("res://Levels/Level20.tscn")
+#			load("res://Levels/Level11.tscn"),
+#			load("res://Levels/Level12.tscn"),
+#			load("res://Levels/Level13.tscn"),
+#			load("res://Levels/Level14.tscn"),
+#			load("res://Levels/Level15.tscn"),
+#			load("res://Levels/Level16.tscn"),
+#			load("res://Levels/Level17.tscn"),
+#			load("res://Levels/Level18.tscn"),
+#			load("res://Levels/Level19.tscn"),
+#			load("res://Levels/Level20.tscn")
 			]
 
 func _ready() -> void:

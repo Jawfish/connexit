@@ -115,4 +115,3 @@ func change_theme() -> void:
 			current_theme_key -= 1
 	current_theme = color_schemes[current_theme_key]
 	SignalManager.emit_signal("color_scheme_changed")
-	print(current_theme_key)

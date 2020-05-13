@@ -14,11 +14,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Engine/ColorSchemeObject.gd"
 }, {
-"base": "ColorSchemeObject",
-"class": "Connector",
-"language": "GDScript",
-"path": "res://Levels/Construction/Connector.gd"
-}, {
 "base": "Node2D",
 "class": "Level",
 "language": "GDScript",
@@ -28,12 +23,17 @@ _global_script_classes=[ {
 "class": "Player",
 "language": "GDScript",
 "path": "res://Entities/Player.gd"
+}, {
+"base": "Node",
+"class": "PlayerManager",
+"language": "GDScript",
+"path": "res://Engine/Managers/PlayerManager.gd"
 } ]
 _global_script_class_icons={
 "ColorSchemeObject": "",
-"Connector": "",
 "Level": "",
-"Player": ""
+"Player": "",
+"PlayerManager": ""
 }
 
 [application]

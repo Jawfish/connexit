@@ -5,4 +5,3 @@
 
 [node name="Disconnector" instance=ExtResource( 1 )]
 texture = ExtResource( 2 )
-disconnector = true

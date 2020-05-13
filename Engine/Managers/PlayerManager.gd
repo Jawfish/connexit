@@ -1,10 +1,15 @@
 extends Node
 
+class_name PlayerManager
+
 onready var player_scene: PackedScene = preload("res://Entities/Player.tscn")
 onready var tween: Tween = $Tween
 onready var walk_sound_player: AudioStreamPlayer = $WalkSound
 
 var players: Array
+var goal_locations: Array
+var disconnector_locations: Array
+var connector_locations: Array
 var intended_direction: int
 var undo_delayed: bool = false
 var input_blocked: bool = false
@@ -112,6 +117,7 @@ func move_to(player: Player, new_position: Vector2, time = 0.15, undoing = false
 	tween.interpolate_property(player, "position", player.position, new_position, time, Tween.TRANS_QUINT)
 	tween.start()
 	yield(tween, "tween_completed")
+	check_tile_object(player)
 	check_level_complete()
 
 func all_players_stuck() -> bool:
@@ -137,6 +143,18 @@ func player_animation_playing() -> bool:
 		if player.tween.is_active():
 				return true
 	return false
+
+func check_tile_object(player: Player) -> void:
+	if player.get_location_on_grid() in disconnector_locations:
+		for p in players:
+			if p != player:
+				p.disable_control()
+	elif player.get_location_on_grid() in connector_locations:
+		for p in players:
+			if p != player:
+				p.enable_control()
+	elif player.get_location_on_grid() in goal_locations:
+		player.score_goal()
 
 func player_moving() -> bool:
 	if not direction_key_pressed():
