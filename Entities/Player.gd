@@ -7,7 +7,6 @@ export var control_disabled: bool = false
 onready var tween: Tween = $Tween
 onready var sprite: Sprite = $Sprite
 onready var disconnected_sprite: Sprite = $DisconnectedSprite
-onready var collision: CollisionShape2D = $StaticBody2D/CollisionShape2D
 onready var pop: AudioStreamPlayer2D = $Goal
 onready var pop_reverse: AudioStreamPlayer2D = $Ungoal
 enum states {POSITION, CONTROL_DISABLED, LAST_POSITION, GOAL_REACHED, CONNECTABLE, CONTROLLABLE_PREVIOUS_TURN}
@@ -52,7 +51,6 @@ func score_goal(tween_time: float = 0.5) -> void:
 		control_disabled = true
 	connectable = false	
 	# do not use call_deferred on this, the debugger is wrong
-	disable_collision()
 	if not pop.is_playing():
 		pop.pitch_scale = rand_range(0.9,1.1)
 		pop.play()
@@ -68,7 +66,6 @@ func unscore_goal(tween_time: float = 0.5) -> void:
 		control_disabled = false
 	connectable = true
 	# do not use call_deferred on this, the debugger is wrong	
-	enable_collision();
 	if not pop_reverse.is_playing():
 		pop_reverse.pitch_scale = rand_range(0.9,1.1)
 		pop_reverse.play()
@@ -82,15 +79,6 @@ func get_state(state: int):
 
 func rewind() -> void:
 	turn_states.pop_back()
-
-func disable_collision() -> void:
-	collision.scale *= 0
-	collision.disabled = true
-	
-func enable_collision() -> void:
-	collision.scale = Vector2(1,1)	
-	collision.disabled = false
-	
 
 func match_state(state: int) -> bool:
 	if turn_states.size() > 1:

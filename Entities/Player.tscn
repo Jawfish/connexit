@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Entities/Player.gd" type="Script" id=1]
 [ext_resource path="res://Assets/RoundedBox.svg" type="Texture" id=2]
@@ -8,10 +8,7 @@
 [ext_resource path="res://Assets/Sounds/pop.ogg" type="AudioStream" id=6]
 [ext_resource path="res://Assets/Sounds/pop_reverse.ogg" type="AudioStream" id=7]
 
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 32, 32 )
-
-[sub_resource type="Animation" id=2]
+[sub_resource type="Animation" id=1]
 length = 0.25
 step = 0.01
 tracks/0/type = "value"
@@ -49,16 +46,11 @@ script = ExtResource( 1 )
 scale = Vector2( 0.25, 0.25 )
 texture = ExtResource( 2 )
 
-[node name="StaticBody2D" type="KinematicBody2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-shape = SubResource( 1 )
-
 [node name="Tween" type="Tween" parent="."]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "Spawn"
-anims/Spawn = SubResource( 2 )
+anims/Spawn = SubResource( 1 )
 
 [node name="DisconnectedSprite" type="Sprite" parent="."]
 visible = false
