@@ -26,10 +26,10 @@ var color_schemes: Dictionary = {
 		'Background': Color('eee4e1'),
 		},
 	4:{
-		'Player': Color('f57170'),
-		'Objects': Color('f5f5f5'),
-		'Walls': Color('10ddc2'),
-		'Background': Color('15b7b9'),
+		'Player': Color('8e9aaf'),
+		'Objects': Color('cbc0d3'),
+		'Walls': Color('efd3d7'),
+		'Background': Color('feeafa'),
 		},
 	5:{
 		'Player': Color('9d8189'),
@@ -115,3 +115,4 @@ func change_theme() -> void:
 			current_theme_key -= 1
 	current_theme = color_schemes[current_theme_key]
 	SignalManager.emit_signal("color_scheme_changed")
+	print(current_theme_key)

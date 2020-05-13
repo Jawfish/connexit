@@ -1,4 +1,4 @@
 extends ColorSchemeObject
 
-func _init() -> void:
+func _enter_tree() -> void:
 	color_object = 'Walls'

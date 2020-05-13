@@ -7,40 +7,40 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   sodipodi:docname="Circle.svg"
-   inkscape:version="1.0 (4035a4fb49, 2020-05-01)"
-   id="svg8"
-   version="1.1"
-   viewBox="0 0 67.733328 67.733333"
+   width="255.99998"
    height="255.99998"
-   width="255.99998">
+   viewBox="0 0 67.733328 67.733333"
+   version="1.1"
+   id="svg8"
+   inkscape:version="1.0 (4035a4fb49, 2020-05-01)"
+   sodipodi:docname="Circle.svg">
   <defs
      id="defs2" />
   <sodipodi:namedview
-     inkscape:window-maximized="0"
-     inkscape:window-y="99"
-     inkscape:window-x="3574"
-     inkscape:window-height="1205"
-     inkscape:window-width="1411"
-     fit-margin-bottom="0"
-     fit-margin-right="0"
-     fit-margin-left="0"
-     fit-margin-top="0"
-     units="px"
-     showgrid="false"
-     inkscape:document-rotation="0"
-     inkscape:current-layer="layer1"
-     inkscape:document-units="mm"
-     inkscape:cy="8.1314935"
-     inkscape:cx="18.455596"
-     inkscape:zoom="3.959798"
-     inkscape:pageshadow="2"
-     inkscape:pageopacity="0.0"
-     borderopacity="1.0"
-     bordercolor="#666666"
-     pagecolor="#ffffff"
+     lock-margins="true"
      id="base"
-     lock-margins="true" />
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.4"
+     inkscape:cx="-327.23955"
+     inkscape:cy="93.635236"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     inkscape:document-rotation="0"
+     showgrid="false"
+     units="px"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:window-width="3440"
+     inkscape:window-height="1376"
+     inkscape:window-x="0"
+     inkscape:window-y="27"
+     inkscape:window-maximized="1" />
   <metadata
      id="metadata5">
     <rdf:RDF>
@@ -49,20 +49,27 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
   <g
-     transform="translate(29.40655,151.87084)"
-     id="layer1"
+     inkscape:label="Layer 1"
      inkscape:groupmode="layer"
-     inkscape:label="Layer 1">
-    <circle
-       r="33.866665"
-       cy="-118.00417"
-       cx="4.460115"
-       id="path877"
-       style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1.32293;stroke-linecap:round;stroke-linejoin:round" />
+     id="layer1"
+     transform="translate(29.40655,151.87084)">
+    <path
+       transform="matrix(0.67945878,0,0,0.67919475,3.9988686,-38.156435)"
+       d="m 7.1005769,-122.3864 c -3.6682082,-0.98289 -0.4848433,-5.42959 1.6336341,-6.0968 5.740943,-1.80809 10.322086,4.23752 10.559972,9.36407 0.425523,9.17019 -8.579419,15.47226 -17.0945086,15.02314 -12.4962364,-0.6591 -20.7241634,-12.96182 -19.4863104,-24.82494 1.649863,-15.81169 17.35618074,-26.01636 32.555384,-23.94948 19.126645,2.60095 31.328775,21.75566 28.412648,40.28582 -3.531819,22.442505 -26.157902,36.652782 -48.0162582,32.875814 -25.7593168,-4.451025 -41.9840568,-30.561844 -37.3389868,-55.746694"
+       sodipodi:t0="0"
+       sodipodi:argument="-2.8797932"
+       sodipodi:radius="50.495003"
+       sodipodi:revolution="2"
+       sodipodi:expansion="1"
+       sodipodi:cy="-122.3864"
+       sodipodi:cx="7.1005769"
+       id="path881"
+       style="fill:none;fill-rule:evenodd;stroke:#ffffff;stroke-width:7.78958;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       sodipodi:type="spiral" />
   </g>
 </svg>

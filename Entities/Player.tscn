@@ -49,29 +49,6 @@ script = ExtResource( 1 )
 scale = Vector2( 0.25, 0.25 )
 texture = ExtResource( 2 )
 
-[node name="RayS" type="RayCast2D" parent="."]
-position = Vector2( 0, 33 )
-enabled = true
-cast_to = Vector2( 0, 1 )
-
-[node name="RayW" type="RayCast2D" parent="."]
-position = Vector2( -34, 0 )
-rotation = 1.5708
-enabled = true
-cast_to = Vector2( 0, 1 )
-
-[node name="RayE" type="RayCast2D" parent="."]
-position = Vector2( 33, 0 )
-rotation = -1.5708
-enabled = true
-cast_to = Vector2( 0, 1 )
-
-[node name="RayN" type="RayCast2D" parent="."]
-position = Vector2( 0, -33 )
-rotation = 3.14159
-enabled = true
-cast_to = Vector2( 0, 1 )
-
 [node name="StaticBody2D" type="KinematicBody2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]

@@ -4,17 +4,12 @@ class_name Player
 
 export var control_disabled: bool = false
 
-onready var ray_n: RayCast2D = $RayN
-onready var ray_s: RayCast2D = $RayS
-onready var ray_e: RayCast2D = $RayE
-onready var ray_w: RayCast2D = $RayW
 onready var tween: Tween = $Tween
 onready var sprite: Sprite = $Sprite
 onready var disconnected_sprite: Sprite = $DisconnectedSprite
 onready var collision: CollisionShape2D = $StaticBody2D/CollisionShape2D
 onready var pop: AudioStreamPlayer2D = $Goal
 onready var pop_reverse: AudioStreamPlayer2D = $Ungoal
-
 enum states {POSITION, CONTROL_DISABLED, LAST_POSITION, GOAL_REACHED, CONNECTABLE, CONTROLLABLE_PREVIOUS_TURN}
 
 var turn_states: Array
@@ -22,6 +17,7 @@ var last_position: Vector2
 var goal_reached: bool 
 var connectable: bool = true
 var controllable_previous_turn: bool = true
+var grid_location: Vector2 = Vector2.ZERO
 
 func _enter_tree() -> void:
 	color_object = 'Player'		
@@ -41,10 +37,15 @@ func enable_control() -> void:
 		disconnected_sprite.visible = false
 		$Connected.play()
 
+func get_location_on_grid() -> Vector2:
+	grid_location.x = round((position.x - 32) / GameManager.TILE_SIZE)
+	grid_location.y = round((position.y -32 )/ GameManager.TILE_SIZE)
+	return grid_location
+
 func score_goal(tween_time: float = 0.5) -> void:
 	disconnected_sprite.visible = false
 	tween.interpolate_property(sprite, "scale", sprite.scale, Vector2.ZERO, tween_time, Tween.TRANS_QUINT)
-	tween.interpolate_property(sprite, "rotation", sprite.rotation, 3, tween_time, Tween.TRANS_QUINT)
+	tween.interpolate_property(sprite, "rotation", sprite.rotation, -3, tween_time, Tween.TRANS_QUINT)
 	tween.start()
 	goal_reached = true
 	if not control_disabled:
