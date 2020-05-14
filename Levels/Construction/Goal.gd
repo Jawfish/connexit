@@ -6,4 +6,4 @@ func _init() -> void:
 	color_object = 'Objects'
 
 func _process(delta: float) -> void:
-	sprite.rotate(-0.025)
+	sprite.rotate(-0.025 * delta * 100)

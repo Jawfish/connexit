@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Entities/Player.gd" type="Script" id=1]
 [ext_resource path="res://Assets/RoundedBox.svg" type="Texture" id=2]
@@ -7,6 +7,24 @@
 [ext_resource path="res://Assets/Sounds/click4.ogg" type="AudioStream" id=5]
 [ext_resource path="res://Assets/Sounds/pop.ogg" type="AudioStream" id=6]
 [ext_resource path="res://Assets/Sounds/pop_reverse.ogg" type="AudioStream" id=7]
+[ext_resource path="res://Entities/PlayerSprite.gd" type="Script" id=8]
+
+[sub_resource type="Animation" id=2]
+resource_name = "Disconnected"
+length = 0.1
+step = 0.01
+tracks/0/type = "value"
+tracks/0/path = NodePath("DisconnectedSprite:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
 
 [sub_resource type="Animation" id=1]
 length = 0.25
@@ -41,19 +59,22 @@ tracks/1/keys = {
 ]]
 z_index = 10
 script = ExtResource( 1 )
+control_disabled = true
 
 [node name="Sprite" type="Sprite" parent="."]
-scale = Vector2( 0.25, 0.25 )
+scale = Vector2( 1e-05, 1e-05 )
 texture = ExtResource( 2 )
+script = ExtResource( 8 )
 
 [node name="Tween" type="Tween" parent="."]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "Spawn"
+anims/Disconnected = SubResource( 2 )
 anims/Spawn = SubResource( 1 )
 
 [node name="DisconnectedSprite" type="Sprite" parent="."]
-visible = false
+modulate = Color( 1, 1, 1, 0 )
 scale = Vector2( 0.2, 0.2 )
 texture = ExtResource( 3 )
 

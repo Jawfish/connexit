@@ -5,6 +5,7 @@ class_name ColorSchemeObject
 var color_object: String
 
 func _ready() -> void:
+# warning-ignore:return_value_discarded
 	SignalManager.connect("color_scheme_changed", self, "update_color")
 	update_color()
 

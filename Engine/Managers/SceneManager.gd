@@ -31,16 +31,21 @@ var levels: Array = [
 			]
 
 func _ready() -> void:
+# warning-ignore:return_value_discarded
 	SignalManager.connect("transition_to_level", self, "transition_to_level")
+# warning-ignore:return_value_discarded
 	SignalManager.connect("transition_to_next_level", self, "_on_transition_to_next_level")	
+# warning-ignore:return_value_discarded
 	SignalManager.connect("level_complete", self, "_on_level_complete")
 
+# warning-ignore:unused_argument
 func transition_to_level(index: int) -> void:
 	SignalManager.emit_signal("slide_down_start")
 	slide_down()
 	yield(tween, "tween_all_completed")
 	yield(get_tree().create_timer(GameManager.TURN_TIME), "timeout")	
 	SignalManager.emit_signal("slide_down_finish")
+# warning-ignore:return_value_discarded
 	get_tree().change_scene_to(levels[current_level])
 	slide_up()
 	yield(tween, "tween_all_completed")
@@ -51,13 +56,17 @@ func _on_transition_to_next_level() -> void:
 	transition_to_level(current_level)	
 	
 func slide_down() -> void:
+# warning-ignore:return_value_discarded
 	tween.interpolate_property(color_rect, "margin_bottom", color_rect.margin_bottom, 0, GameManager.TURN_TIME, Tween.TRANS_QUINT)	
+# warning-ignore:return_value_discarded
 	tween.start()
 	slide_sound.pitch_scale = 1
 	slide_sound.play()
 
 func slide_up() -> void:
+# warning-ignore:return_value_discarded
 	tween.interpolate_property(color_rect, "margin_bottom", color_rect.margin_bottom, -641, GameManager.TURN_TIME, Tween.TRANS_QUINT)	
+# warning-ignore:return_value_discarded
 	tween.start()	
 	slide_sound.pitch_scale = 1.1
 	slide_sound.play()
