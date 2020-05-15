@@ -6,6 +6,7 @@ onready var level_name_label: Label = $Labels/LevelName
 onready var player_manager: PlayerManager = $PlayerManager
 onready var map: TileMap = $TileMap
 
+
 var objects: Array = [
 				preload("res://Levels/Construction/Spawn.tscn"),
 				preload("res://Levels/Construction/Goal.tscn"),
@@ -33,13 +34,13 @@ func generate_level() -> void:
 					object = objects[0].instance()
 				2:
 					object = objects[1].instance()
-					player_manager.goal_locations.append(tile)
+					$TileMap.goal_locations.append(tile)
 				3:
 					object = objects[2].instance()
-					player_manager.disconnector_locations.append(tile)					
+					$TileMap.disconnector_locations.append(tile)					
 				4: 
 					object = objects[3].instance()
-					player_manager.connector_locations.append(tile)		
+					$TileMap.connector_locations.append(tile)		
 								
 			object.position.x = tile_position.x
 			object.position.y = tile_position.y

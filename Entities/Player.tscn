@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Entities/Player.gd" type="Script" id=1]
 [ext_resource path="res://Assets/RoundedBox.svg" type="Texture" id=2]
@@ -8,7 +8,6 @@
 [ext_resource path="res://Assets/Sounds/pop.ogg" type="AudioStream" id=6]
 [ext_resource path="res://Assets/Sounds/pop_reverse.ogg" type="AudioStream" id=7]
 [ext_resource path="res://Entities/PlayerSprite.gd" type="Script" id=8]
-[ext_resource path="res://Entities/CommandQueue.gd" type="Script" id=9]
 
 [sub_resource type="Animation" id=1]
 resource_name = "Disconnected"
@@ -89,6 +88,3 @@ stream = ExtResource( 6 )
 
 [node name="Ungoal" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 7 )
-
-[node name="CommandQueue" type="Node" parent="."]
-script = ExtResource( 9 )

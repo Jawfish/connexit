@@ -2,7 +2,6 @@ extends Node
 
 const TILE_SIZE: int = 64
 const TURN_TIME: float = 0.2
-var disconnected: bool = false
 
 func _ready() -> void:
 # warning-ignore:return_value_discarded

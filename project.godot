@@ -43,7 +43,6 @@ run/main_scene="res://UI/MainMenu.tscn"
 
 [autoload]
 
-CommandManager="*res://Engine/Managers/CommandManager.gd"
 ColorSchemes="*res://Engine/ColorSchemes.gd"
 SignalManager="*res://Engine/Managers/SignalManager.gd"
 GameManager="*res://Engine/Managers/GameManager.gd"
