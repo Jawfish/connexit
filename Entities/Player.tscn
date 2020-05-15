@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Entities/Player.gd" type="Script" id=1]
 [ext_resource path="res://Assets/RoundedBox.svg" type="Texture" id=2]
@@ -8,8 +8,9 @@
 [ext_resource path="res://Assets/Sounds/pop.ogg" type="AudioStream" id=6]
 [ext_resource path="res://Assets/Sounds/pop_reverse.ogg" type="AudioStream" id=7]
 [ext_resource path="res://Entities/PlayerSprite.gd" type="Script" id=8]
+[ext_resource path="res://Entities/CommandQueue.gd" type="Script" id=9]
 
-[sub_resource type="Animation" id=2]
+[sub_resource type="Animation" id=1]
 resource_name = "Disconnected"
 length = 0.1
 step = 0.01
@@ -26,7 +27,7 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
 
-[sub_resource type="Animation" id=1]
+[sub_resource type="Animation" id=2]
 length = 0.25
 step = 0.01
 tracks/0/type = "value"
@@ -70,8 +71,8 @@ script = ExtResource( 8 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "Spawn"
-anims/Disconnected = SubResource( 2 )
-anims/Spawn = SubResource( 1 )
+anims/Disconnected = SubResource( 1 )
+anims/Spawn = SubResource( 2 )
 
 [node name="DisconnectedSprite" type="Sprite" parent="."]
 modulate = Color( 1, 1, 1, 0 )
@@ -89,3 +90,6 @@ stream = ExtResource( 6 )
 
 [node name="Ungoal" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 7 )
+
+[node name="CommandQueue" type="Node" parent="."]
+script = ExtResource( 9 )

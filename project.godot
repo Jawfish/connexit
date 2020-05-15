@@ -43,6 +43,7 @@ run/main_scene="res://UI/MainMenu.tscn"
 
 [autoload]
 
+CommandManager="*res://Engine/Managers/CommandManager.gd"
 ColorSchemes="*res://Engine/ColorSchemes.gd"
 SignalManager="*res://Engine/Managers/SignalManager.gd"
 GameManager="*res://Engine/Managers/GameManager.gd"
@@ -135,6 +136,11 @@ undo={
 debug_spawn_players={
 "deadzone": 0.5,
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":92,"unicode":0,"echo":false,"script":null)
+ ]
+}
+debug_rewind={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777220,"unicode":0,"echo":false,"script":null)
  ]
 }
 

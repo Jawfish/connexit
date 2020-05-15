@@ -26,11 +26,8 @@ func generate_level() -> void:
 			map.set_cellv(tile, -1)			
 			var object
 			var tile_position := Vector2(
-# warning-ignore:integer_division
-								 map.map_to_world(tile).x + round(GameManager.TILE_SIZE / 2), 
-# warning-ignore:integer_division
-								 map.map_to_world(tile).y + round(GameManager.TILE_SIZE / 2))
-
+				 map.map_to_world(tile).x + round(GameManager.TILE_SIZE / 2), 
+				 map.map_to_world(tile).y + round(GameManager.TILE_SIZE / 2))
 			match tile_index:
 				1:
 					object = objects[0].instance()
