@@ -43,7 +43,6 @@ func execute_amount_backward(amount: int) -> void:
 	var children: Array = get_children()	
 	if children.empty():
 		return
-	var unexecuted: int = 0
 	children.invert()
 	for i in range(amount):
 		children[i].execute()
@@ -52,7 +51,6 @@ func unexecute_amount_backward(amount: int) -> void:
 	var children: Array = get_children()	
 	if children.empty():
 		return
-	var unexecuted: int = 0
 	children.invert()
 	for i in range(amount):
 		children[i].unexecute()
