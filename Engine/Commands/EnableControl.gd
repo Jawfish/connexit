@@ -2,8 +2,10 @@ extends "res://Engine/Commands/ActorCommand.gd"
 
 
 func execute() -> void:
-	actor.enable_control()
+	if not actor.goal_reached:
+		actor.enable_control()
 
 func unexecute() -> void:
-#	actor.disable_control()
+	if "nothing" in actor.get_next_to_last_command().name.to_lower() and not actor.goal_reached:
+		actor.disable_control()
 	queue_free()

@@ -8,4 +8,6 @@ onready var do_nothing: PackedScene = preload("res://Engine/Commands/DoNothing.t
 onready var score_goal: PackedScene = preload("res://Engine/Commands/ScoreGoal.tscn")
 onready var disable_control: PackedScene = preload("res://Engine/Commands/DisableControl.tscn")
 onready var enable_control: PackedScene = preload("res://Engine/Commands/EnableControl.tscn")
+onready var step_on_disconnector: PackedScene = preload("res://Engine/Commands/StepOnDisconnector.tscn")
+onready var step_on_connector: PackedScene = preload("res://Engine/Commands/StepOnConnector.tscn")
 

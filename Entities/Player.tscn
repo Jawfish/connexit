@@ -60,7 +60,6 @@ tracks/1/keys = {
 ]]
 z_index = 10
 script = ExtResource( 1 )
-control_disabled = true
 
 [node name="Sprite" type="Sprite" parent="."]
 scale = Vector2( 1e-05, 1e-05 )

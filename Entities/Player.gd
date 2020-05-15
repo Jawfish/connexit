@@ -12,14 +12,29 @@ onready var goal_score_sound_reverse: AudioStreamPlayer2D = $Ungoal
 var control_disabled: bool = false
 var goal_reached: bool = false
 var connectable: bool = true
-	
+var commands: Array
+
 func add_command(command: PackedScene) -> void:
 	var cmd = command.instance()
 	cmd.actor = self
 	$CommandQueue.add_child(cmd)
-	$CommandQueue.execute_last()
+	commands.append(cmd)
 
-func get_command() -> PackedScene:
+func execute_last_command() -> void:
+	$CommandQueue.execute_last()	
+
+func execute_newest_commands() -> void:
+	for command in commands:
+		command.execute()
+	commands.clear()
+	
+func get_command(index: int) -> Node:
+	return $CommandQueue.get_child(index)
+
+func get_next_to_last_command() -> Node:
+	return $CommandQueue.get_child($CommandQueue.get_children().size() - 2)
+
+func get_last_command() -> Node:
 	return $CommandQueue.get_children().back()
 
 func toggle_connectable() -> void:

@@ -70,17 +70,17 @@ func _process(delta: float) -> void:
 				player.add_command(CommandManager.do_nothing)			
 		if not players_that_moved_this_turn.empty():
 			for player in players:
+				# add a filler command if other players moved this turn but this player didn't
 				if not player in players_that_moved_this_turn and not player.control_disabled and not player.goal_reached:
 					player.add_command(CommandManager.do_nothing)
-		for player in players:
-			if not player.goal_reached:
-				check_tile_object(player)	
-
-	elif Input.is_action_pressed("undo") and not direction_key_pressed():
-		delay_input()
-		for player in get_tree().get_nodes_in_group("Player"):
-			player.get_node("CommandQueue").unexecute_last()
-		return
+		resolve_turn()
+		
+		# not able to fix undo mechanic before gamejam deadline
+#	elif Input.is_action_pressed("undo") and not direction_key_pressed():
+#		delay_input()
+#		for player in get_tree().get_nodes_in_group("Player"):
+#			player.get_node("CommandQueue").unexecute_last()
+#		return
 		
 
 func _on_slide_up_finish() -> void:
@@ -118,23 +118,10 @@ func delay_input() -> void:
 	yield(get_tree().create_timer(input_delay_time), "timeout")
 	input_delayed = false
 
-func check_tile_object(player: Player) -> void:
-	if level.world_to_map(player.global_position) in disconnector_locations:
-		for p in get_tree().get_nodes_in_group("Player"):
-			if p != player:
-				p.add_command(CommandManager.disable_control)
-	elif level.world_to_map(player.global_position) in connector_locations:
-		for p in get_tree().get_nodes_in_group("Player"):
-			if p != player:
-				p.add_command(CommandManager.enable_control)		
-	elif level.world_to_map(player.global_position) in goal_locations:
-		player.add_command(CommandManager.score_goal)
-
 func move_to(player: Player, command: PackedScene) -> void:
 	players_that_moved_this_turn.append(player)		
 	play_piece_move_sfx()
 	player.add_command(command)
-	check_level_complete()
 	
 func all_players_stuck() -> bool:
 	for player in players:
@@ -170,7 +157,45 @@ func direction_key_pressed() -> bool:
 			Input.is_action_pressed("ui_left") or 
 			Input.is_action_pressed("ui_right") or 
 			Input.is_action_pressed("ui_up"))
-	
+			
+#func check_tile_object(player: Player) -> String:
+#	if level.world_to_map(player.global_position) in disconnector_locations:
+#		player.add_command(CommandManager.step_on_disconnector)
+#		for p in get_tree().get_nodes_in_group("Player"):
+#			if p != player and not p.goal_reached:
+#				p.add_command(CommandManager.disable_control)
+#	elif level.world_to_map(player.global_position) in connector_locations:
+#		player.add_command(CommandManager.step_on_connector)
+#		for p in get_tree().get_nodes_in_group("Player"):
+#			if p != player and not p.goal_reached:
+#				p.add_command(CommandManager.enable_control)			
+#	elif level.world_to_map(player.global_position) in goal_locations:
+#		player.add_command(CommandManager.score_goal)
+
+func check_tile_object(player: Player) -> String:
+	if level.world_to_map(player.global_position) in disconnector_locations:
+		return "disconnector"
+	elif level.world_to_map(player.global_position) in connector_locations:
+		return "connector"			
+	elif level.world_to_map(player.global_position) in goal_locations:
+		return "goal"
+	return ""
+
+func resolve_turn () -> void:
+	for player in players:
+		var tile_object = check_tile_object(player)
+		match tile_object:
+			"disconnector":
+				player.add_command(CommandManager.disable_control)
+			"connector":
+				player.add_command(CommandManager.step_on_connector)
+			"goal":
+				player.add_command(CommandManager.score_goal)
+
+		player.execute_newest_commands()
+		
+	check_level_complete()
+
 func check_player_direction(player: Player, direction: int) -> bool:
 	var player_location = level.world_to_map(player.global_position)
 	var tile_to_check: Vector2 = Vector2.ZERO

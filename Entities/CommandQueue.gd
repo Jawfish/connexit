@@ -10,9 +10,12 @@ func unexecute_last() -> void:
 	var children: Array = get_children()
 	if get_children().empty():
 		return
-	if ("ScoreGoal" in children.back().name or
-		"DisableControl" in children.back().name or
-		"EnableControl" in children.back().name):
+	if ("connect" in children.back().name.to_lower() and
+		"control" in children[children.size() - 2].name.to_lower()):
+		unexecute_amount_backward(3)
+	elif ("score" in children.back().name.to_lower() or
+		"control" in children.back().name.to_lower() or
+		"connect" in children.back().name.to_lower()):
 		unexecute_amount_backward(2)
 	else:
 		children.back().unexecute()
