@@ -57,7 +57,7 @@ func unexecute_amount_backward(amount: int) -> void:
 
 func execute_amount_forward(amount: int) -> void:
 	for i in range(amount):
-		get_children()[i].unexecute()
+		get_children()[i].execute()
 
 func unexecute_amount_forward(amount: int) -> void:
 	for i in range(amount):
