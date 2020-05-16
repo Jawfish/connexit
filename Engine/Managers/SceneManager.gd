@@ -20,16 +20,16 @@ var levels: Dictionary = {
 			"Level 8": load("res://Levels/Level8.tscn"),
 			"Level 9": load("res://Levels/Level9.tscn"),
 			"Level 10": load("res://Levels/Level10.tscn"),
-#			load("res://Levels/Level11.tscn"),
-#			load("res://Levels/Level12.tscn"),
-#			load("res://Levels/Level13.tscn"),
-#			load("res://Levels/Level14.tscn"),
-#			load("res://Levels/Level15.tscn"),
-#			load("res://Levels/Level16.tscn"),
-#			load("res://Levels/Level17.tscn"),
-#			load("res://Levels/Level18.tscn"),
-#			load("res://Levels/Level19.tscn"),
-#			load("res://Levels/Level20.tscn")
+			"Level 11": load("res://Levels/Level11.tscn"),
+			"Level 12": load("res://Levels/Level12.tscn"),
+			"Level 13": load("res://Levels/Level13.tscn"),
+			"Level 14": load("res://Levels/Level14.tscn"),
+			"Level 15": load("res://Levels/Level15.tscn"),
+			"Level 16": load("res://Levels/Level16.tscn"),
+			"Level 17": load("res://Levels/Level17.tscn"),
+			"Level 18": load("res://Levels/Level18.tscn"),
+			"Level 19": load("res://Levels/Level19.tscn"),
+			"Level 20": load("res://Levels/Level20.tscn")
 			}
 
 func reload_level() -> void:

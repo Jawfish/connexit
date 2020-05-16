@@ -54,5 +54,7 @@ flat = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
+[connection signal="mouse_entered" from="LevelSelectButton" to="." method="_on_LevelSelectButton_mouse_entered"]
 [connection signal="pressed" from="LevelSelectButton" to="." method="_on_LevelSelectButton_pressed"]
+[connection signal="mouse_entered" from="StartGameButton" to="." method="_on_StartGameButton_mouse_entered"]
 [connection signal="pressed" from="StartGameButton" to="." method="_on_StartGameButton_pressed"]

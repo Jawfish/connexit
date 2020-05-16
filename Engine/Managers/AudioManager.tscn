@@ -1,0 +1,22 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Assets/Sounds/woosh_low.ogg" type="AudioStream" id=1]
+[ext_resource path="res://Assets/Sounds/click5.ogg" type="AudioStream" id=2]
+[ext_resource path="res://Assets/Sounds/click4.ogg" type="AudioStream" id=3]
+[ext_resource path="res://Assets/Sounds/click1.ogg" type="AudioStream" id=4]
+[ext_resource path="res://Engine/Managers/AudioManager.gd" type="Script" id=5]
+
+[node name="AudioManager" type="Node"]
+script = ExtResource( 5 )
+
+[node name="Hover" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
+
+[node name="Walk" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
+
+[node name="Click" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 2 )
+
+[node name="Woosh" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 1 )

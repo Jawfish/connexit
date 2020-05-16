@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Levels/BackButton.gd" type="Script" id=2]
+[ext_resource path="res://Assets/Back.svg" type="Texture" id=3]
+
+[node name="BackButton" type="TextureButton"]
+margin_top = 576.0
+margin_right = 296.0
+margin_bottom = 714.0
+rect_scale = Vector2( 0.5, 0.5 )
+texture_normal = ExtResource( 3 )
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="mouse_entered" from="." to="." method="_on_BackButton_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_BackButton_mouse_exited"]
+[connection signal="pressed" from="." to="." method="_on_BackButton_pressed"]

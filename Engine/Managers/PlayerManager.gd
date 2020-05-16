@@ -72,6 +72,11 @@ func spawn_players() -> void:
 		var player: Player = player_scene.instance()
 		player.position = spawn.position
 		add_child(player)
+	for spawn in get_tree().get_nodes_in_group("ImmuneSpawn"):
+		var player: Player = player_scene.instance()
+		player.set_immune()
+		player.position = spawn.position
+		add_child(player)
 	SignalManager.emit_signal("players_finished_spawning")
 
 func _on_players_finished_spawning() -> void:
@@ -128,7 +133,7 @@ func direction_key_pressed() -> bool:
 
 func resolve_turn() -> void:	
 	for player in players:
-		if not player.goal_reached or player.control_disabled and not level.world_to_map(player.last_position) == level.world_to_map(player.global_position):
+		if (not (player.goal_reached or player.control_disabled)) and (not level.world_to_map(player.last_position) == level.world_to_map(player.global_position)):
 			if level.world_to_map(player.global_position) in level.goal_locations:
 				player.score_goal()
 			if level.world_to_map(player.global_position) in level.disconnector_locations:
@@ -140,7 +145,7 @@ func resolve_turn() -> void:
 				for p in players:
 					if level.world_to_map(p.global_position) in level.disconnector_locations:
 						player_on_disconnect = true
-				if not player_on_disconnect:
+				if player.immune or not player_on_disconnect:
 					for p in players:
 						if p.control_disabled:
 							p.enable_control()	

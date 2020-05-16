@@ -48,6 +48,7 @@ SignalManager="*res://Engine/Managers/SignalManager.gd"
 GameManager="*res://Engine/Managers/GameManager.gd"
 SceneManager="*res://Engine/Managers/SceneManager.tscn"
 MusicManager="*res://Engine/Managers/MusicManager.tscn"
+AudioManager="*res://Engine/Managers/AudioManager.tscn"
 
 [display]
 
