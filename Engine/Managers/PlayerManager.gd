@@ -33,11 +33,10 @@ func _input(event: InputEvent) -> void:
 		intended_direction = directions.WEST
 	elif event.is_action_pressed("ui_right"):
 		intended_direction = directions.EAST
-	elif event.is_action_pressed("reload") and not direction_key_pressed():
-		if SceneManager.current_level == -1:
-			pass
-		else:
-			SignalManager.emit_signal("transition_to_level", SceneManager.current_level)
+	elif event.is_action_pressed("reload") and not direction_key_pressed() and not SceneManager.tween.is_active():
+			SceneManager.reload_level()
+	elif event.is_action_pressed("quit_to_menu") and not SceneManager.tween.is_active():
+		SceneManager.transition_to_scene(SceneManager.main_menu)
 	# DEBUG
 	elif event.is_action_pressed("debug_spawn_players"):
 		spawn_players()
@@ -90,7 +89,7 @@ func check_level_complete() -> void:
 	SignalManager.emit_signal("level_complete")
 	# wait until the player is no longer visible
 	yield(get_tree().create_timer(GameManager.TURN_TIME), "timeout")
-	SignalManager.emit_signal("transition_to_next_level")
+	SceneManager.transition_to_scene(level.get_parent().next_level)
 
 func _on_level_complete() -> void:
 	block_input()
@@ -130,8 +129,6 @@ func direction_key_pressed() -> bool:
 func resolve_turn() -> void:	
 	for player in players:
 		if not player.goal_reached or player.control_disabled and not level.world_to_map(player.last_position) == level.world_to_map(player.global_position):
-			print(level.world_to_map(player.last_position))
-			print(level.world_to_map(player.global_position))
 			if level.world_to_map(player.global_position) in level.goal_locations:
 				player.score_goal()
 			if level.world_to_map(player.global_position) in level.disconnector_locations:

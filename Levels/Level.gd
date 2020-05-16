@@ -5,7 +5,11 @@ class_name Level
 onready var level_name_label: Label = $Labels/LevelName
 onready var player_manager: PlayerManager = $PlayerManager
 onready var map: TileMap = $TileMap
+onready var game_ui_scene: PackedScene = preload("res://UI/GameUI.tscn")
+onready var game_ui: CanvasLayer = game_ui_scene.instance()
 
+export(String) var level_name: String
+export(PackedScene) var next_level: PackedScene
 
 var objects: Array = [
 				preload("res://Levels/Construction/Spawn.tscn"),
@@ -15,8 +19,10 @@ var objects: Array = [
 				]
 
 func _ready() -> void:
+	SignalManager.connect("slide_up_finish", self, "_on_slide_up_finish")
+	SceneManager.current_level = self
 	generate_level()
-	level_name_label.text = "Level " + str(SceneManager.current_level + 1)	
+	level_name_label.text = level_name
 	for label in get_tree().get_nodes_in_group("Label"):
 		label.add_color_override("font_color", ColorSchemes.current_theme['Player'])
 
@@ -45,3 +51,6 @@ func generate_level() -> void:
 			object.position.x = tile_position.x
 			object.position.y = tile_position.y
 			add_child(object)
+
+func _on_slide_up_finish() -> void:
+	add_child(game_ui)
