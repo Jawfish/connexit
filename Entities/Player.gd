@@ -13,12 +13,15 @@ var control_disabled: bool = false
 var goal_reached: bool = false
 var connectable: bool = true
 var immune: bool = false
+var phaser: bool = false
 var last_position: Vector2
 var checked_tile
 
 func _ready() -> void:
 	if immune:
-		sprite.texture = load("res://Assets/Triangle.svg")		
+		sprite.texture = load("res://Assets/Triangle.svg")	
+	elif phaser:
+		sprite.texture = load("res://Assets/Phaser.svg")	
 
 func move(direction: Vector2) -> void:
 	var cell = level.world_to_map(global_position)
@@ -46,8 +49,11 @@ func move(direction: Vector2) -> void:
 	last_position = global_position	
 
 func set_immune() -> void:
-	immune = true;
-
+	immune = true
+	
+func set_phasing() -> void:
+	phaser = true
+	
 func toggle_connectable() -> void:
 	connectable = !connectable
 

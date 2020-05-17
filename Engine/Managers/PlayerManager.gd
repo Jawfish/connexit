@@ -77,6 +77,11 @@ func spawn_players() -> void:
 		player.set_immune()
 		player.position = spawn.position
 		add_child(player)
+	for spawn in get_tree().get_nodes_in_group("PhaserSpawn"):
+		var player: Player = player_scene.instance()
+		player.set_phasing()
+		player.position = spawn.position
+		add_child(player)
 	SignalManager.emit_signal("players_finished_spawning")
 
 func _on_players_finished_spawning() -> void:
@@ -133,19 +138,15 @@ func direction_key_pressed() -> bool:
 
 func resolve_turn() -> void:	
 	for player in players:
-		if (not (player.goal_reached or player.control_disabled)) and (not level.world_to_map(player.last_position) == level.world_to_map(player.global_position)):
+		if (not player.goal_reached) and (not level.world_to_map(player.last_position) == level.world_to_map(player.global_position)):
 			if level.world_to_map(player.global_position) in level.goal_locations:
 				player.score_goal()
-			if level.world_to_map(player.global_position) in level.disconnector_locations:
-				for p in players:
-					if not p == player and not p.control_disabled:
-						p.disable_control()
-			elif level.world_to_map(player.global_position) in level.connector_locations and not player.control_disabled:
-				var player_on_disconnect: bool = false
-				for p in players:
-					if level.world_to_map(p.global_position) in level.disconnector_locations:
-						player_on_disconnect = true
-				if player.immune or not player_on_disconnect:
+			if not player.control_disabled:
+				if level.world_to_map(player.global_position) in level.disconnector_locations:
+					for p in players:
+						if not p == player and not p.control_disabled:
+							p.disable_control()
+				elif level.world_to_map(player.global_position) in level.connector_locations and not player.control_disabled:
 					for p in players:
 						if p.control_disabled:
 							p.enable_control()	
@@ -169,8 +170,11 @@ func check_player_direction(player: Player, direction: int) -> bool:
 			tile_to_check = Vector2(1, 0) + player_location
 		directions.WEST:
 			tile_to_check = Vector2(-1, 0) + player_location
-	if (level.get_cell(tile_to_check.x, tile_to_check .y) == -1 and not tile_to_check in other_player_locations):
-		return true
+	if not player.phaser:
+		if (level.get_cell(tile_to_check.x, tile_to_check .y) == -1 and not tile_to_check in other_player_locations):
+			return true
+	elif level.get_cell(tile_to_check.x, tile_to_check .y) == -1:
+			return true
 	return false
 
 func _on_slide_down_start() -> void:

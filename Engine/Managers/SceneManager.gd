@@ -6,7 +6,7 @@ onready var level_complete_sound: AudioStreamPlayer = $LevelCompleteSound
 onready var slide_sound: AudioStreamPlayer = $SlideSound
 onready var main_menu: PackedScene = load("res://UI/MainMenu.tscn")
 onready var level_select: PackedScene = load("res://UI/LevelSelect.tscn")
-
+onready var credits: PackedScene = load("res://UI/Credits.tscn")
 var current_level: Node2D
 
 var levels: Dictionary = {

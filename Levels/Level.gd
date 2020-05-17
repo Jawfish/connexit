@@ -15,6 +15,7 @@ var objects: Array = [
 				preload("res://Levels/Construction/Disconnector.tscn"),
 				preload("res://Levels/Construction/Connector.tscn"),
 				preload("res://Levels/Construction/ImmuneSpawn.tscn"),
+				preload("res://Levels/Construction/PhaserSpawn.tscn"),				
 				]
 
 func _ready() -> void:
@@ -52,7 +53,9 @@ func generate_level() -> void:
 					$TileMap.connector_locations.append(tile)
 				5: 
 					object = objects[4].instance()
-								
+				6: 
+					object = objects[5].instance()				
+
 			object.position.x = tile_position.x
 			object.position.y = tile_position.y
 			add_child(object)

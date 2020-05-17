@@ -16,7 +16,7 @@ func _on_LevelSelectButton_pressed() -> void:
 
 func _on_StartGameButton_pressed() -> void:
 	AudioManager.click.play()
-	yield(AudioManager.click, "finished")		
+	yield(AudioManager.click, "finished")	
 	SceneManager.start_game()
 
 
@@ -25,3 +25,13 @@ func _on_LevelSelectButton_mouse_entered() -> void:
 
 func _on_StartGameButton_mouse_entered() -> void:
 	AudioManager.hover.play()	
+
+
+func _on_CreditsButton_mouse_entered() -> void:
+	AudioManager.hover.play()
+
+
+func _on_CreditsButton_pressed() -> void:
+	AudioManager.click.play()
+	yield(AudioManager.click, "finished")	
+	SceneManager.transition_to_scene(SceneManager.credits)

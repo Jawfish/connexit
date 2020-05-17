@@ -54,7 +54,30 @@ flat = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="CreditsButton" type="Button" parent="." groups=[
+"Label",
+]]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -183.0
+margin_top = 54.5
+margin_right = 183.0
+margin_bottom = 137.5
+custom_styles/focus = SubResource( 1 )
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color_hover = Color( 1, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 1, 0, 0, 1 )
+text = "Credits"
+flat = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
 [connection signal="mouse_entered" from="LevelSelectButton" to="." method="_on_LevelSelectButton_mouse_entered"]
 [connection signal="pressed" from="LevelSelectButton" to="." method="_on_LevelSelectButton_pressed"]
 [connection signal="mouse_entered" from="StartGameButton" to="." method="_on_StartGameButton_mouse_entered"]
 [connection signal="pressed" from="StartGameButton" to="." method="_on_StartGameButton_pressed"]
+[connection signal="mouse_entered" from="CreditsButton" to="." method="_on_CreditsButton_mouse_entered"]
+[connection signal="pressed" from="CreditsButton" to="." method="_on_CreditsButton_pressed"]
